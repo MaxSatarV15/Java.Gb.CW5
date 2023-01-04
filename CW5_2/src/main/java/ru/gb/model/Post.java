@@ -10,10 +10,14 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
-    private int id;
+    private Long id;
 
     @Column
     private String name;
+
+
+    @Column
+    private String text;
 
     public Post() {
     }
@@ -21,7 +25,15 @@ public class Post {
         this.name = name;
     }
 
-    public int getId() {
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -29,7 +41,7 @@ public class Post {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

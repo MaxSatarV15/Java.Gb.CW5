@@ -3,13 +3,14 @@ package ru.gb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.model.Post;
 import ru.gb.repository.PostRepository;
 import ru.gb.service.PostService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Optional;
 
 @Controller
 public class BlogController {
@@ -37,6 +38,15 @@ public class BlogController {
         Post post = new Post(name);
         postRepository.save(post);
         return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}")
+    public String posts_ByID(@PathVariable(value = "id") long id, Model model) {
+        Optional<Post> post = postRepository.findById(id);
+        ArrayList<Post> res = new ArrayList<>();
+        post.ifPresent(res::add);
+        model.addAttribute("post", res);
+        return "post";
     }
 }
 
